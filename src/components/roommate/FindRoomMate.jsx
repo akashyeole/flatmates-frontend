@@ -6,12 +6,12 @@ import tempImg from '../../images/housenotfound.png';
 // Find a Room page
 const FindRoomMate = () => {
   const [rooms, setRooms] = useState([]);
-  const [newRoom, setNewRoom] = useState({ title: '', location: '', price: '', image: tempImg });
-
+  const [newRoom, setNewRoom] = useState({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', image: tempImg });
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setRooms(prevRooms => [...prevRooms, newRoom]);
-    setNewRoom({ title: '', location: '', price: '', image: tempImg });
+    setNewRoom({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', image: tempImg });
   };
 
   const handleChange = (e) => {
@@ -30,24 +30,38 @@ const FindRoomMate = () => {
 
   return (
     <div className="find-a-room-page">
-      <h1 style={{ color: 'white', padding: '10px', justifyContent: 'center', flex: 1 }}>
+      <h1 style={{ color: 'rgb(41, 102, 215)', padding: '10px', justifyContent: 'center', flex: 1 }}>
         Please Enter Available Room
       </h1>
       <div className="add-room-form">
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            name="title"
-            value={newRoom.title}
+            name="build_name"
+            value={newRoom.build_name}
             onChange={handleChange}
-            placeholder="Title"
+            placeholder="Building Name"
           />
           <input
             type="text"
-            name="location"
-            value={newRoom.location}
+            name="room_n"
+            value={newRoom.room_n}
             onChange={handleChange}
-            placeholder="Location"
+            placeholder="Room Number"
+          />
+          <input
+            type="text"
+            name="addr_1"
+            value={newRoom.addr_1}
+            onChange={handleChange}
+            placeholder="Address Line 1"
+          />
+          <input
+            type="text"
+            name="addr_2"
+            value={newRoom.addr_2}
+            onChange={handleChange}
+            placeholder="Address Line 1"
           />
           <input
             type="text"
@@ -56,7 +70,7 @@ const FindRoomMate = () => {
             onChange={handleChange}
             placeholder="Price"
           />
-          <button type="submit">Add Room</button>
+          <button className="remove-button" type="submit">Add Room</button>
         </form>
       </div>
       <div className="room-listings">

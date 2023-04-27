@@ -8,16 +8,20 @@ const Room = () => {
   const [rooms, setRooms] = useState([
     {
       id: 1,
-      title: 'Room 1',
-      location: 'Location 1',
+      build_name : 'Shewanta',
+      room_n : 78,
+      addr_1 : 'bl 50', 
+      addr_2 : 'Nashik',
       price: 'Rs.1000/month',
       image: tempImg,
     },
     {
       id: 2,
-      title: 'Room 2',
-      location: 'Location 2',
-      price: 'Rs.900/month',
+      build_name : 'Suflam',
+      room_n : 6,
+      addr_1 : 'bl 9', 
+      addr_2 : 'Pune',
+      price: 'Rs.1000/month',
       image: tempImg,
     },
   ]);
@@ -30,12 +34,13 @@ const Room = () => {
     roomWindow.document.write(`
       <html>
         <head>
-          <title>${room.title}</title>
+          <title>${room.build_name}</title>
         </head>
         <body>
-        <img src="${room.image}" alt="${room.title}" />
-          <h2>${room.title}</h2>
-          <p>Location: ${room.location}</p>
+        <img src="${room.image}" alt="${room.build_name}" />
+          <h2>${room.build_name}</h2>
+          <p>Location: ${room.addr_1}</p>
+          <p>${room.addr_2}</p>
           <p>Price: ${room.price}</p>
         </body>
       </html>
