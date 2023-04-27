@@ -7,6 +7,7 @@ export default function Signup() {
     const[name, setName] = useState("");
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
+    const[mobile, setMobile] = useState();
     const navigate = useNavigate();
 
 
@@ -40,22 +41,26 @@ export default function Signup() {
     return (
     <>
       <div className="signup-page">
-        
+        <form>
             <h1 className="signup-title">Register</h1>    
             <input type="text" placeholder="Enter Name" 
             value={name} onChange={(e)=>{setName(e.target.value)}} 
-            className="input-box" ></input> 
+            className="input-box" required></input> 
+
+            <input type="number" placeholder="Enter Mobile No"
+            value={mobile} onChange={(e)=>{setMobile(e.target.value)}}
+            className="input-box" required></input>
             
             <input type="email" placeholder="Enter Email" 
             value={email} onChange={(e)=>{setEmail(e.target.value)}} 
-            className="input-box" ></input>             
+            className="input-box" required></input>             
             
             <input type="password" placeholder="Enter Password" 
             value={password} onChange={(e)=>{setPassword(e.target.value)}} 
-            className="input-box" ></input> 
+            className="input-box" required />
 
             <button onClick={collectData} type="submit">Register</button>
-        
+        </form>
       </div>
     </>
   );

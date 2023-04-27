@@ -52,6 +52,13 @@
 }
 
 
+/* for removing arrows in mobile number input field */
+input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        display: none;
+      }
+
+
 /* css for landing page */
 .landing-page{
   align-items: center;
@@ -78,9 +85,12 @@
   text-decoration: none;
 }
 
-
+.landing-page h1{
+  color: dimgray;
+}
 .landing-page h3{
-  color: rgb(41, 102, 215);
+  /* color: rgb(41, 102, 215); */
+  color: dimgrey;
 }
 
 /* css for login page */
@@ -142,3 +152,49 @@
 .signup-page button{
   margin-top: 20px;
 }
+
+/* css for navbar and logout tab */
+.nav-ul li{
+  padding: 10px;
+  justify-content: center;
+  list-style-type: none;
+  margin: auto;
+}
+
+.nav-ul li a{
+  padding: 5px;
+  text-decoration: none;
+  margin-right: auto;
+  color: #282c34;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.nav-ul li h3{
+  font-weight: 600;
+  margin-top: 15px;
+  font-size: 25px;
+}
+
+
+.nav-ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+  margin: 0;
+  background-color: cornflowerblue;
+}
+
+.userAndLogout{
+  display: flex;
+  margin: auto;
+  font-size: 20px;
+  align-items: center;
+  font-weight: 600;
+}
+
+
+
+
+
