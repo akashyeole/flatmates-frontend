@@ -30,6 +30,13 @@ const RoomMateCard = ({ room, onRoomClick, onRemoveClick }) => {
     // For example, you can send them to a backend API
     // and update the component with the response
     setEditMode(false);
+    setEditedValues({
+      build_name: editedValues.build_name,
+      room_n: editedValues.room_n,
+      addr_1: editedValues.addr_1,
+      addr_2: editedValues.addr_2,
+      price: editedValues.price
+    });
   };
 
   const handleCancelClick = () => {
@@ -91,11 +98,11 @@ const RoomMateCard = ({ room, onRoomClick, onRemoveClick }) => {
         </>
       ) : (
         <>
-          <h2>{build_name}</h2>
-          <p>{room_n}</p>
-          <p>{price}</p>
-          <p>{addr_1}</p>
-          <p>{addr_2}</p>
+          <h2>{editedValues.build_name}</h2>
+          <p>{editedValues.room_n}</p>
+          <p>{editedValues.addr_1}</p>
+          <p>{editedValues.addr_2}</p>
+          <p>{editedValues.price}</p>
           <button className="remove-button" onClick={handleRemoveClick}>
             Remove
           </button>
