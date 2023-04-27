@@ -1,0 +1,23 @@
+.find-a-room-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    /* background-; */
+}
+  
+.find-a-room-page h1 {
+    color: white;
+    padding: 10px;
+    justify-content: center;
+    flex: 1;
+}
+  
+.room-listings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+  
