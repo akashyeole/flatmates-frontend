@@ -10,9 +10,7 @@ export default function EditProfile() {
     const navigate = useNavigate();
 
     
-    //integrating signup or register API created at backend with reactjs......
     const collectUpdateData= async ()=>{
-        // console.log(name, email, password);
         let result = await fetch('http://localhost:4000/api/routes/updateuser',{
           method: 'post',
           body: JSON.stringify({name, email, mobile}),
