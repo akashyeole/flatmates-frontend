@@ -9,8 +9,6 @@ export default function Signup() {
     const[password, setPassword] = useState("");
     const[mobile, setMobile] = useState();
     const navigate = useNavigate();
-
-
     
     useEffect(()=>{
         const auth = localStorage.getItem('user');
@@ -21,10 +19,10 @@ export default function Signup() {
     
     //integrating signup or register API created at backend with reactjs......
     const collectData= async ()=>{
-        console.log(name, email, password);
+        // console.log(name, email, password);
         let result = await fetch('http://localhost:4000/api/routes/register',{
           method: 'post',
-          body: JSON.stringify({name, email, password}),
+          body: JSON.stringify({name, email, mobile, password}),
           headers: {
             'Content-Type': 'application/json'
           }

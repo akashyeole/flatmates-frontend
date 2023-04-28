@@ -6,7 +6,7 @@ import tempImg from '../../images/housenotfound.png';
 // Find a Room page
 const FindRoomMate = () => {
   const [rooms, setRooms] = useState([]);
-  const [newRoom, setNewRoom] = useState({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', image: tempImg });
+  const [newRoom, setNewRoom] = useState({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', occupancy: undefined, image: tempImg });
   const [isRoomAdded, setIsRoomAdded] = useState(false);
   
   const handleSubmit = (e) => {
@@ -17,7 +17,7 @@ const FindRoomMate = () => {
     } else {
       setIsRoomAdded(false);
     }
-    setNewRoom({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', image: tempImg });
+    setNewRoom({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', occupancy: 1, image: tempImg });
   };
 
   const handleChange = (e) => {
@@ -72,6 +72,14 @@ const FindRoomMate = () => {
             value={newRoom.addr_2}
             onChange={handleChange}
             placeholder="Address Line 1"
+            required
+          />
+          <input
+            type="number"
+            name="occupancy"
+            value={newRoom.occupancy}
+            onChange={handleChange}
+            placeholder="Occupancy"
             required
           />
           <input

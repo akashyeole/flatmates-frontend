@@ -1,31 +1,33 @@
 import React from 'react';
 import './Homepage.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Redirect } from 'react-router-dom';
 
 const Home = () => {
+  
   const navigate = useNavigate();
-
+  
   const handleFindRoomClick = () => {
     navigate('/findroom');
   };
   const handleFindRoomMateClick = () => {
     navigate('/findroommate');
   };
-  return (
-    <div className="parent-container d-flex flex-column justify-content-center align-items-center">
-      <div className="home-container d-flex flex-column flex-md-row justify-content-center align-items-center rounded-3 p-5">
-        <div className="findroom-container">
-          <p className="title">Need a room/hostel? Tired of searching around the city? Find one near your college now!</p>
-          <button className="sub-title transparent-btn" onClick={handleFindRoomClick}>Find A Room</button>
+  return(
+    <div className='container p-5 d-flex gap-4 parent-container'>
+        <div className="card border-primary mb-3 rounded-4">
+          <div className="card-body text-primary ">
+            <p className="card-text">Need a flat or a room? Tired of searching around the city? Find one now!</p>
+          </div>
+          <div className="card-header" onClick={handleFindRoomClick}>Find a room</div>
         </div>
-        <div className="vertical-divide rounded-4"></div>
-        <div className="findmate-container">
-          <p className="title">Already have a room and want to share? Find someone and split the expenses now!</p>
-          <button className="sub-title transparent-btn" onClick={handleFindRoomMateClick}>Find A Room-Mate</button>
+        <div className="card border-primary mb-3 rounded-4">
+          <div className="card-body text-primary">
+            <p className="card-text" >Already have a room and want to share? Find someone and split the expenses now!</p>
+          </div>
+          <div className="card-header" onClick={handleFindRoomMateClick}>Find a room-mate</div>
         </div>
       </div>
-    </div>
-  )
+  );
 }
 
 export default Home;

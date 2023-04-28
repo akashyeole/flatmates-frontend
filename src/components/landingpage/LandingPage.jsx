@@ -1,8 +1,18 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    const auth = localStorage.getItem('user');
+    if(auth){
+        navigate('/home');
+    }
+  })
+
   const handleRegister = () => {
     <Routes>
       <Route path="/signup">Register</Route>

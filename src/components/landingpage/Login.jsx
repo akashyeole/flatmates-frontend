@@ -14,7 +14,7 @@ const Login = () => {
       navigate("/home");
     }
   }, []);
-
+  
   const handleLogin = async () => {
     console.log(email, password);
     let result = await fetch("http://localhost:4000/api/routes/login", {
@@ -25,7 +25,7 @@ const Login = () => {
       },
     });
     result = await result.json();
-    console.log(result);
+    // console.log(result);
     if (result.name) {
       localStorage.setItem("user", JSON.stringify(result));
       navigate("/home");
@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <div className="login-bg">
-      <div className="login">
+      <form className="login">
         <h1 className="login-title">Login</h1>
         <input
           type="text"
@@ -56,11 +56,10 @@ const Login = () => {
           }}
           value={password}
         />
-        <button type="button" onClick={handleLogin}>
-          {" "}
+        <button type="submit" onClick={handleLogin}>
           Login
         </button>
-      </div>
+      </form>
     </div>
   );
 };

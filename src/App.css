@@ -194,6 +194,24 @@ input::-webkit-outer-spin-button,
   font-weight: 600;
 }
 
+.userAndLogout .navDrop{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: cornflowerblue;
+  border: none;
+  color: black;
+}
+
+.navDrop li{
+  font-size: larger;
+}
+
+.navDrop ul li{
+  font-size: large;
+}
+
 
 
 
