@@ -20,6 +20,7 @@ export default function Signup() {
     //integrating signup or register API created at backend with reactjs......
     const collectData= async ()=>{
         // console.log(name, email, password);
+        if(name.length == 0 || email.length==0 || mobile.length == 0 || password.length ==0) return;
         let result = await fetch('http://localhost:4000/api/routes/register',{
           method: 'post',
           body: JSON.stringify({name, email, mobile, password}),

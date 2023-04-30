@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [mobile, setMobile] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,7 +14,8 @@ const Login = () => {
   }, []);
   
   const handleLogin = async () => {
-    console.log(email, password);
+    // console.log(email, password);
+    if(email.length == 0 || password.length == 0) return;
     let result = await fetch("http://localhost:4000/api/routes/login", {
       method: "post",
       body: JSON.stringify({ email, password }),

@@ -1,46 +1,77 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './FindRoomMate.css';
 import tempImg from '../../images/housenotfound.png';
 
 // Find a Room page
 const FindRoomMate = () => {
-  const [rooms, setRooms] = useState([]);
-  const [newRoom, setNewRoom] = useState({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', occupancy: undefined, image: tempImg });
-  const [isRoomAdded, setIsRoomAdded] = useState(false);
-  const [editIndex, setEditIndex] = useState(-1);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (editIndex >= 0) {
-      setRooms(prevRooms => {
-        const updatedRooms = [...prevRooms];
-        updatedRooms[editIndex] = newRoom;
-        return updatedRooms;
-      });
-      setIsRoomAdded(true);
-      setIsSubmitted(true);
-      setEditIndex(-1);
-    } else if (rooms.length === 0) {
-      setRooms(prevRooms => [...prevRooms, newRoom]);
-      setIsRoomAdded(true);
-    } else {
-      setIsRoomAdded(false);
+  const [room, setRoom] = useState({});
+  const [editable, setEditable] = useState(false);
+
+
+  useEffect(() => {
+    const doJob = async ()=> {
+      let user = await JSON.parse(localStorage.getItem('user'))
+        const response = await fetch('http://localhost:4000/api/routes/room/' + user.email, {
+          method: 'GET'
+        })
+        const json = await response.json()
+        const { buildName, roomNumber, addressLine1, addressLine2, rent, occupancy, activeStatus } = json[0]
+        if(json.length == 0){
+          setEditable(true);
+        }
+        setRoom(json[0]);
     }
-    setNewRoom({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', occupancy: undefined, image: tempImg });
-  };
+    doJob()
+    
+  }, []);
+
+  // const handleSubmit = (e) => {
+  //   // e.preventDefault();
+  //   // if (editIndex >= 0) {
+  //   //   setRooms(prevRooms => {
+  //   //     const updatedRooms = [...prevRooms];
+  //   //     updatedRooms[editIndex] = newRoom;
+  //   //     return updatedRooms;
+  //   //   });
+  //   //   setIsRoomAdded(true);
+  //   //   setIsSubmitted(true);
+  //   //   setEditIndex(-1);
+  //   // } else if (rooms.length === 0) {
+  //   //   setRooms(prevRooms => [...prevRooms, newRoom]);
+  //   //   setIsRoomAdded(true);
+  //   // } else {
+  //   //   setIsRoomAdded(false);
+  //   // }
+  //   // setNewRoom({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', occupancy: undefined, image: tempImg });
+  // };
 
   const handleChange = (e) => {
-    if (!isSubmitted) {
-      const { name, value } = e.target;
-      setNewRoom(prevRoom => ({ ...prevRoom, [name]: value }));
-    }
+    console.log(e.target.value )
+    setRoom({ ...room, [e.target.name]: e.target.value });
   };
 
-  const handleEdit = (index) => {
-    setNewRoom(rooms[index]);
-    setEditIndex(index);
-  };
+  // const
+
+  const activeHandler = () => {
+    setRoom({...room, activeStatus: !room.activeStatus});
+  }
+
+  const btnHandleClick = async () => {
+    if(!editable){
+      setEditable(true);
+    }else{
+      let user = await JSON.parse(localStorage.getItem('user'))
+      setEditable(false);
+      let result = await fetch('http://localhost:4000/api/routes/room',{
+          method: 'post',
+          body: JSON.stringify({...room, adderMail: user.email, adderName: user.name, mobile: user.mobile}),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+    }
+  }
 
   return (
     <div className="find-a-room-page">
@@ -48,70 +79,63 @@ const FindRoomMate = () => {
         Please Enter Available Room
       </h1>
       <div className="add-room-form">
-        <form onSubmit={handleSubmit}>
+        <form >
           <input
             type="text"
-            name="build_name"
-            value={newRoom.build_name}
+            name="buildName"
+            value={room.buildName}
             onChange={handleChange}
-            placeholder="Building Name"
-            required
+            placeholder="Building/House Name"
+            required disabled = {!editable}
           />
           <input
             type="text"
-            name="room_n"
-            value={newRoom.room_n}
+            name="roomNumber"
+            value={room.roomNumber}
             onChange={handleChange}
             placeholder="Room Number"
-            required
+            required disabled = {!editable}
           />
           <input
             type="text"
-            name="addr_1"
-            value={newRoom.addr_1}
+            name="addressLine1"
+            value={room.addressLine1}
             onChange={handleChange}
             placeholder="Address Line 1"
-            required
+            required disabled = {!editable}
           />
           <input
             type="text"
-            name="addr_2"
-            value={newRoom.addr_2}
+            name="addressLine2"
+            value={room.addressLine2}
             onChange={handleChange}
             placeholder="Address Line 2"
-            required
+            disabled = {!editable}
           />
           <input
             type="number"
             name="occupancy"
-            value={newRoom.occupancy}
+            value={room.occupancy}
             onChange={handleChange}
             placeholder="Occupancy"
             required
+            disabled = {!editable}
           />
           <input
-            type="text"
-            name="price"
-            value={newRoom.price}
+            type="number"
+            name="rent"
+            value={room.rent}
             onChange={handleChange}
-            placeholder="Price"
+            placeholder="Rent"
             required
+            disabled = {!editable}
           />
-          <button className="remove-button" type="submit">{editIndex >= 0 ? 'Update' : 'Submit'}</button>
+          <div className="form-check form-switch">
+            <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={activeHandler} checked = {room.activeStatus} disabled = {!editable}/>
+            <label className="form-check-label" for="flexSwitchCheckDefault">Enable Public Visibility</label>
+          </div>
+          <button className="remove-button" type = {editable ? "button" : "submit"} onClick={btnHandleClick}>{ editable ? "Save details" : "Edit details"}</button>
         </form>
-        {isRoomAdded && (
-          <p style={{ color: 'green', textAlign: 'center' }}>{editIndex >= 0 ? 'Pleaase Update Your Room!' : 'Room added successfully!'}</p>
-        )}
-        {!isRoomAdded && (<p style={{ color: 'red', textAlign: 'center' }}>Please add a single room Details</p>)}
-            {rooms.length > 0 && (
-      <div className="room-list">
-        {rooms.map((room, index) => (
-          <div key={index} className="room-card">
-              <button className="edit-button" onClick={() => handleEdit(index)}>Edit</button>
-            </div>
-        ))}
-      </div>
-    )}
   </div>
 </div>
 );
