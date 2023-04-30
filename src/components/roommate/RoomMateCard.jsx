@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './RoomMateCard.css';
 
 const RoomMateCard = ({ room, onRoomClick, onRemoveClick }) => {
@@ -15,10 +16,6 @@ const RoomMateCard = ({ room, onRoomClick, onRemoveClick }) => {
 
   const handleRoomClick = () => {
     onRoomClick(id);
-  };
-
-  const handleRemoveClick = () => {
-    onRemoveClick(id);
   };
 
   const handleEditClick = () => {
@@ -50,6 +47,17 @@ const RoomMateCard = ({ room, onRoomClick, onRemoveClick }) => {
     });
   };
 
+  const handleSubmitClick = async () => {
+    try {
+      const response = await axios.post('http://localhost:4000/api/routes/login', editedValues);
+      // If the POST request is successful, you can update the component state or perform other actions
+      console.log(response.data);
+      setEditMode(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setEditedValues((prevState) => ({
@@ -103,10 +111,8 @@ const RoomMateCard = ({ room, onRoomClick, onRemoveClick }) => {
           <p>{editedValues.addr_1}</p>
           <p>{editedValues.addr_2}</p>
           <p>{editedValues.price}</p>
-          <button className="remove-button" onClick={handleRemoveClick}>
-            Remove
-          </button>
           <button className="remove-button" onClick={handleEditClick}>Edit</button>
+          <button className="remove-button" onClick={handleSubmitClick}>Submit</button>
         </>
       )}
     </div>

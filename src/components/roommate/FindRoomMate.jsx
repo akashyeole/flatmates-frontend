@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import RoomMateCard from './RoomMateCard';
 import './FindRoomMate.css';
 import tempImg from '../../images/housenotfound.png';
 
@@ -8,31 +7,39 @@ const FindRoomMate = () => {
   const [rooms, setRooms] = useState([]);
   const [newRoom, setNewRoom] = useState({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', occupancy: undefined, image: tempImg });
   const [isRoomAdded, setIsRoomAdded] = useState(false);
-  
+  const [editIndex, setEditIndex] = useState(-1);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (rooms.length === 0) {
+    if (editIndex >= 0) {
+      setRooms(prevRooms => {
+        const updatedRooms = [...prevRooms];
+        updatedRooms[editIndex] = newRoom;
+        return updatedRooms;
+      });
+      setIsRoomAdded(true);
+      setIsSubmitted(true);
+      setEditIndex(-1);
+    } else if (rooms.length === 0) {
       setRooms(prevRooms => [...prevRooms, newRoom]);
       setIsRoomAdded(true);
     } else {
       setIsRoomAdded(false);
     }
-    setNewRoom({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', occupancy: 1, image: tempImg });
+    setNewRoom({ build_name: '', room_n: '', addr_1:'', addr_2:'', price: '', occupancy: undefined, image: tempImg });
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewRoom(prevRoom => ({ ...prevRoom, [name]: value }));
+    if (!isSubmitted) {
+      const { name, value } = e.target;
+      setNewRoom(prevRoom => ({ ...prevRoom, [name]: value }));
+    }
   };
 
-  const handleRoomClick = (roomId) => {
-    // Code for handling room click
-  };
-
-  // Handle remove click
-  const handleRemoveClick = (roomId) => {
-    setRooms(prevRooms => prevRooms.filter(room => room.id !== roomId));
-    setIsRoomAdded(false);
+  const handleEdit = (index) => {
+    setNewRoom(rooms[index]);
+    setEditIndex(index);
   };
 
   return (
@@ -71,7 +78,7 @@ const FindRoomMate = () => {
             name="addr_2"
             value={newRoom.addr_2}
             onChange={handleChange}
-            placeholder="Address Line 1"
+            placeholder="Address Line 2"
             required
           />
           <input
@@ -90,27 +97,24 @@ const FindRoomMate = () => {
             placeholder="Price"
             required
           />
-          <button className="remove-button" type="submit">Add Room</button>
+          <button className="remove-button" type="submit">{editIndex >= 0 ? 'Update' : 'Submit'}</button>
         </form>
         {isRoomAdded && (
-          <p style={{ color: 'green', textAlign: 'center' }}>Room added successfully!</p>
+          <p style={{ color: 'green', textAlign: 'center' }}>{editIndex >= 0 ? 'Pleaase Update Your Room!' : 'Room added successfully!'}</p>
         )}
-        {!isRoomAdded && rooms.length > 0 && (
-          <p style={{ color: 'red', textAlign: 'center' }}>Sorry, only one room can be added per user.</p>
-        )}
-      </div>
-      <div className="room-listings">
-        {rooms.map(room => (
-          <RoomMateCard
-            key={room.id}
-            room={room}
-            onRoomClick={handleRoomClick}
-            onRemoveClick={handleRemoveClick}
-          />
+        {!isRoomAdded && (<p style={{ color: 'red', textAlign: 'center' }}>Please add a single room Details</p>)}
+            {rooms.length > 0 && (
+      <div className="room-list">
+        {rooms.map((room, index) => (
+          <div key={index} className="room-card">
+              <button className="edit-button" onClick={() => handleEdit(index)}>Edit</button>
+            </div>
         ))}
       </div>
-    </div>
-  );
+    )}
+  </div>
+</div>
+);
 };
 
 export default FindRoomMate;

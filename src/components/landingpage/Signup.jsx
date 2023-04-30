@@ -55,7 +55,7 @@ export default function Signup() {
             
             <input type="password" placeholder="Enter Password" 
             value={password} onChange={(e)=>{setPassword(e.target.value)}} 
-            className="input-box" required />
+            className="input-box" required/>
 
             <button onClick={collectData} type="submit">Register</button>
         </form>
