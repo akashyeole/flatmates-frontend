@@ -1,74 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import RoomCard from './RoomCard';
+import RoomDetail from './RoomDetail';
 import './Room.css';
-import tempImg from '../../images/housenotfound.png';
 
-// Find a Room page
 const Room = () => {
-  const [rooms, setRooms] = useState([
-    {
-      id: 1,
-      build_name : 'Shewanta',
-      room_n : 78,
-      addr_1 : 'bl 50', 
-      addr_2 : 'Nashik',
-      price: 'Rs.1000/month',
-      image: tempImg,
-    },
-    {
-      id: 2,
-      build_name : 'Suflam',
-      room_n : 6,
-      addr_1 : 'bl 9', 
-      addr_2 : 'Pune',
-      price: 'Rs.1000/month',
-      image: tempImg,
-    },
-  ]);
+  const [rooms, setRooms] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
-  // Handle room click
-  const handleRoomClick = (roomId) => {
-    const room = rooms.find(room => room.id === roomId);
-    const windowFeatures = 'menubar=no,location=no,resizable=yes,scrollbars=yes,status=yes';
-    const roomWindow = window.open('', '_blank', windowFeatures);
-    roomWindow.document.write(`
-      <html>
-        <head>
-          <title>${room.build_name}</title>
-        </head>
-        <body>
-        <img src="${room.image}" alt="${room.build_name}" />
-          <h2>${room.build_name}</h2>
-          <p>Location: ${room.addr_1}</p>
-          <p>${room.addr_2}</p>
-          <p>Price: ${room.price}</p>
-        </body>
-      </html>
-    `);
-    roomWindow.document.close();
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const response = await fetch('http://localhost:4000/api/routes/room');
+      const data = await response.json();
+      setRooms(data);
+    };
+
+    fetchRooms();
+  }, []);
+
+  const handleRoomClick = (room) => {
+    setSelectedRoom(room);
+  };
+
+  const handleModalClose = () => {
+    setSelectedRoom(null);
   };
 
   return (
     <div className="find-a-room-page">
-      <h1
-        style={{
-          color: 'white',
-          padding: '10px',
-          justifyContent: 'center',
-          flex: 1,
-        }}
-      >
-        Find a Room
-      </h1>
+      <h1 style={{ color: 'rgb(41, 102, 215)', padding: '10px', justifyContent: 'center', flex: 1 }}>Find a Room</h1>
       <div className="room-listings">
         {rooms.map(room => (
           <RoomCard
-            key={room.id}
+            key={room._id}
             room={room}
-            onRoomClick={handleRoomClick}
+            onRoomClick={() => handleRoomClick(room)}
           />
         ))}
       </div>
+      {selectedRoom && (
+        <RoomDetail
+          room={selectedRoom}
+          onClose={handleModalClose}
+        />
+      )}
     </div>
   );
 };

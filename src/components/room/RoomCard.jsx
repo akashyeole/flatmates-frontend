@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './RoomCard.css';
 
 const RoomCard = ({ room, onRoomClick }) => {
-  const { id, build_name, room_n, addr_1, addr_2, price, image } = room;
+  // Destructure the properties of the `room` object
+  const { id, buildName, roomNumber, rent} = room;
 
-  const handleRoomClick = () => {
+  // Use the `useState` hook to manage the `showDetails` state
+  const [showDetails, setShowDetails] = useState(false);
+
+  // Function to handle the "View Details" button click
+  const handleViewDetailsClick = () => {
+    setShowDetails(true);
     onRoomClick(id);
+  };
+
+  // Function to handle the "Close" button click in the modal
+  const handleCloseModalClick = () => {
+    setShowDetails(false);
   };
 
   return (
     <div className="room-card rounded-3">
-      <img src={image} alt={build_name} />
-      <h2>{build_name}</h2>
-      <p>{room_n}</p>
-      <p>{addr_1}</p>
-      <p>{addr_2}</p>
-      <p>{price}</p>
-      <button className="room-button" onClick={handleRoomClick}>
+      <h2>{buildName}</h2>
+      <p>Room Number: {roomNumber}</p>
+      <p>Rent: ${rent}</p>
+      {/* Button that triggers the modal */}
+      <button className="room-button" onClick={handleViewDetailsClick}>
         View Details
       </button>
     </div>
