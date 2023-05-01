@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Homepage.css';
 import { useNavigate, Redirect } from 'react-router-dom';
 
 const Home = () => {
-  
+  const auth = localStorage.getItem("user");
   const navigate = useNavigate();
+  useEffect(()=>{
+    // console.log(auth)
+    if(auth == null) navigate("/");
+  })
+  
   
   const handleFindRoomClick = () => {
     navigate('/findroom');

@@ -6,8 +6,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const auth = localStorage.getItem("user");
   useEffect(() => {
-    const auth = localStorage.getItem("user");
     if (auth) {
       navigate("/home");
     }

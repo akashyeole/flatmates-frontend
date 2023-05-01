@@ -4,13 +4,27 @@ import { useNavigate } from 'react-router-dom';
 
 export default function EditProfile() {
 
-    var user = JSON.parse(localStorage.getItem('user'));
-  
-    const[name, setNewName] = useState(user.name);
-    const[email, setCurrEmail] = useState(user.email);
-    const[mobile, setNewMobile] = useState(user.mobile);
-    // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const[name, setNewName] = useState('');
+  const[email, setCurrEmail] = useState('');
+  const[mobile, setNewMobile] = useState('');
+  let user = localStorage.getItem("user");
 
+  useEffect(()=>{
+    const mb = async()=>{
+        const doJob = async()=>{
+          if(user == null) navigate("/");
+          else{
+            user = await JSON.parse(user);
+          }
+        }
+        await doJob();
+        setCurrEmail(user.email)
+        setNewMobile(user.mobile)
+        setNewName(user.name)
+    }
+    mb();
+  }, [])
     
     const collectUpdateData= async ()=>{
       let result = await fetch('http://localhost:4000/api/routes/updateuser',{
@@ -35,9 +49,7 @@ export default function EditProfile() {
     <>
       <div className="signup-page">
         <form>
-            
-            <h1 className="signup-title">Edit Your Details</h1> 
-
+            <h1 className="signup-title m-5">Edit Your Details</h1> 
             <input type="email" placeholder="Enter Email" 
             value={email} onChange={(e)=>{setCurrEmail(e.target.value)}} 
             className="input-box" disabled></input>             
