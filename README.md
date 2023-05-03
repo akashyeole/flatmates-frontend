@@ -8,7 +8,7 @@
 | Pratik Rathod  | 22010885       | `321056`   |
 | Sanika Kulkarni   |   22120255   | `321089`   |
 
-###Proposed System
+### Proposed System
 
 1. Profile Creation: Users will be able to create profiles that include their
 basic information, such as name, address and location, as well as their
