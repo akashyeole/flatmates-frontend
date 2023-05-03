@@ -134,7 +134,7 @@ const FindRoomMate = () => {
             placeholder="Additional Note"
             disabled = {!editable}
             required
-          > ds</textarea>
+          />
           <div className="form-check form-switch">
             <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={activeHandler} checked = {room.activeStatus} disabled = {!editable}/>
             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Enable Public Visibility</label>

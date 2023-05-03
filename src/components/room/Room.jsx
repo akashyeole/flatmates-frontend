@@ -3,6 +3,7 @@ import RoomCard from './RoomCard';
 import RoomDetail from './RoomDetail';
 import './Room.css';
 
+
 const Room = () => {
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
@@ -22,7 +23,7 @@ const Room = () => {
   };
 
   const handleModalClose = () => {
-    setSelectedRoom(null);
+    setSelectedRoom(false);
   };
 
   return (
