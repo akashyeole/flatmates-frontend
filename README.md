@@ -24,6 +24,13 @@ of rooms, price, location, and any other relevant details. Users can also
 search for available rooms or apartments based on their preferences, such
 as location, price range, and amenities
 
+### Output
+![image](https://user-images.githubusercontent.com/97229205/236603068-1027d3f5-fa38-4bd7-85fc-772c52cc85c0.png)
+![image](https://user-images.githubusercontent.com/97229205/236603093-83c59f21-0789-4a47-bfc4-2cf0c104423d.png)
+![image](https://user-images.githubusercontent.com/97229205/236603103-161d01a9-7f90-4aba-b72c-01e64578da75.png)
+![image](https://user-images.githubusercontent.com/97229205/236603111-e15727d6-b396-49e5-aea1-a9e9e98cad75.png)
+![image](https://user-images.githubusercontent.com/97229205/236603130-2dca622a-1130-4c4b-954a-0e5a59ce1734.png)
+
 <h1 align=center>CONTRIBUTORS✨ </h1>
 <p align="center">
 
