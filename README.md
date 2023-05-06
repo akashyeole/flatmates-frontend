@@ -24,3 +24,11 @@ of rooms, price, location, and any other relevant details. Users can also
 search for available rooms or apartments based on their preferences, such
 as location, price range, and amenities
 
+<h1 align=center>CONTRIBUTORS✨ </h1>
+<p align="center">
+
+<a href="https://github.com/akashyeole/flatmates-frontend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=akashyeole/flatmates-frontend" />
+</a>
+</p>
+
