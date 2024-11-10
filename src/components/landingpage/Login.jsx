@@ -6,16 +6,16 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const auth = localStorage.getItem("user");
+  // eslint-disable-next-line
   useEffect(() => {
+    const auth = localStorage.getItem("user");
     if (auth) {
       navigate("/home");
     }
   }, []);
   
   const handleLogin = async () => {
-    // console.log(email, password);
-    if(email.length == 0 || password.length == 0) return;
+    if(email.length === 0 || password.length === 0) return;
     let result = await fetch("http://localhost:4000/api/routes/login", {
       method: "post",
       body: JSON.stringify({ email, password }),
@@ -24,7 +24,6 @@ const Login = () => {
       },
     });
     result = await result.json();
-    // console.log(result);
     if (result.name) {
       localStorage.setItem("user", JSON.stringify(result));
       navigate("/home");

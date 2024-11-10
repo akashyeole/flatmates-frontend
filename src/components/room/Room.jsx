@@ -31,7 +31,7 @@ const Room = () => {
       <h1 style={{ color: 'rgb(41, 102, 215)', padding: '10px', justifyContent: 'center', flex: 1 }}>Find a Room</h1>
       <div className="room-listings">
         {rooms.map(room => (
-          <RoomCard
+          <MemoizedRoomCard
             key={room._id}
             room={room}
             onRoomClick={() => handleRoomClick(room)}
@@ -47,5 +47,7 @@ const Room = () => {
     </div>
   );
 };
+
+const MemoizedRoomCard = React.memo(RoomCard);
 
 export default Room;

@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -14,15 +13,11 @@ export default function LandingPage() {
   })
 
   const handleRegister = () => {
-    <Routes>
-      <Route path="/signup">Register</Route>
-    </Routes>;
+    navigate('/signup');
   };
-
+  
   const handleLogin = () => {
-    <Routes>
-      <Route path="/login">Login</Route>
-    </Routes>;
+      navigate('/login');
   };
 
   return (
@@ -32,8 +27,8 @@ export default function LandingPage() {
       <br />
       <h1>Find your "LIKE-MINDED" Flatmate</h1>
       <div className="landing-page-buttons">
-        <button onClick={handleRegister}><Link className="landingPageButtonsLinks" to="/signup">Register</Link></button>
-        <button onClick={handleLogin}><><Link className="landingPageButtonsLinks" to="/login">Login</Link></></button>
+        <button onClick={handleRegister}>Register</button>
+        <button onClick={handleLogin}>Login</button>
       </div>
     </div>
 
